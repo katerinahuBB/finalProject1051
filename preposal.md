@@ -3,7 +3,7 @@
 ## What idea(s) do you have for your final project?
 
 breakout arcade game
-making food simluation
+making food simuluation
 
 
 ## If you plan to collaborate with one or two classmates, what are their names?
