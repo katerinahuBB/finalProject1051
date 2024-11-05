@@ -2,10 +2,10 @@
 
 ## What idea(s) do you have for your final project?
 
-<<<<<<< HEAD
+<<<<<<< HEAD\n
 breakout arcade game
-making food simuluation
-
+making food simulation
+spring simulation 
 =======
 TODO
 >>>>>>> efa3a4647d99238529fbf86a888b1e8549fc4530
