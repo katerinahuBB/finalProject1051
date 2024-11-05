@@ -2,7 +2,9 @@
 
 ## What idea(s) do you have for your final project?
 
-TODO
+breakout arcade game
+making food simluation
+
 
 ## If you plan to collaborate with one or two classmates, what are their names?
 
