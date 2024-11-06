@@ -2,7 +2,7 @@
 
 ## What idea(s) do you have for your final project?
 
-<<<<<<< HEAD
+<<<<<<< HEAD<br/>
 breakout arcade game<br/>
 making food simulation<br/>
 spring simulation <br/>
