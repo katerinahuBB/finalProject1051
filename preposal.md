@@ -3,11 +3,9 @@
 ## What idea(s) do you have for your final project?
 
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD<br/>
-breakout arcade game<br/>
-making food simulation<br/>
-spring simulation <br/>
+breakout arcade game
+making food simuluation
+
 =======
 >>>>>>> 606ff9d318283264ac62aa0625ffea348916bf55
 TODO
