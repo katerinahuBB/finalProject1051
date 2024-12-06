@@ -1,5 +1,9 @@
 import pygame
 from pygame.locals import *
+from random import randint
+from ball import Ball
+
+
 
 pygame.init()
 
@@ -12,8 +16,11 @@ screenHeight = 650
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("PyBreak Arcade Game")
 
+#code for bckground
+background = pygame.image.load("background.png")
 #to change bckground colors use code below
 bg = (0,0,0) #use diff numbers
+
 
 #block colors the ones that the ball destroys
 red = (255, 0, 0)
@@ -24,6 +31,7 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (255, 0, 255)
 white = (255,255,255)
+black = (0,0,0)
 
 cols= 5
 rows= 4
@@ -39,11 +47,23 @@ platformSpeed = 10
 platformColor = pink
 platformOutline = (100,100,100)
 
+#create ball variables
+# OBJECTS
+ballX = 250
+ballY = 540
+ballXspeed = 2
+ballYspeed = 2
+ballRadius = 15
+ballColor = purple
+ball = Ball(ballX, ballY, ballRadius, ballColor, ballXspeed, ballYspeed, screen)
+
+
 #brick wall class
 class wall():
     def __init__(self):
         self.width = screenWidth // cols
         self.height = 50
+        self.blocks = []
 
     def createWall(self):
         self.blocks = []
@@ -83,7 +103,7 @@ class wall():
                 elif block[1] ==1:
                     blockCol = purple
                 pygame.draw.rect(screen, blockCol, block[0])
-                pygame.draw.rect(screen, bg, (block[0]), 2)
+                pygame.draw.rect(screen, black, (block[0]), 2)
 
 
 #create platform
@@ -119,7 +139,9 @@ class platform():
 		self.direction = 0
 
 
-#create ball
+
+
+
 
 
 
@@ -136,6 +158,8 @@ while run:
 
     #add bckground here
     screen.fill(bg)
+    #add background image
+    screen.blit(background,(0,0))
     #the wall
     wall.drawWall()
     #slow down platform
@@ -143,6 +167,28 @@ while run:
     #add platform
     playerPlatform.draw()
     playerPlatform.move()
+    #create ball
+    ball.move()
+    # Check if ball hits the x-axis above 
+    ball.check_for_contact_on_x()
+   # Check if ball hits y-axis on the side
+    ball.check_for_contact_on_y()
+   # Check if ball hits platform
+    if (playerPlatform.rect.y < ball.y + ball.radius < playerPlatform.rect.y + playerPlatform.height
+          and
+        playerPlatform.rect.x < ball.x + ball.radius < playerPlatform.rect.x + playerPlatform.width):
+        ball.bounce_y()
+        ball.y = playerPlatform.y - ball.radiu
+    #check if ball hits wall
+    for row in wall.blocks:
+        for block in row:
+            brick_rect = block[0]
+            if brick_rect.collidepoint(ball.x, ball.y - ball.radius) or brick_rect.collidepoint(ball.x, ball.y + ball.radius):
+                block[1] -= 1  # Decrease brick strength
+                if block[1] <= 0:
+                    row.remove(block)  # Remove brick if strength is 0
+                ball.bounce_y()
+                break
 
 
     for event in pygame.event.get():
