@@ -73,7 +73,7 @@ ball = Ball(ballX, ballY, ballRadius, ballColor, ballXspeed, ballYspeed, screen)
 
 # Brick wall class
 class Wall():
-    def __init__(self):
+    def __init__(self, level = 1):
         self.width = screenWidth // cols
         self.height = 50
         self.blocks = []
@@ -160,10 +160,29 @@ class Score():
         scoreText = font.render(f"Score: {self.score}", True, self.color)
         self.screen.blit(scoreText, (self.x, self.y))
 
+# Level class
+class Level():
+    def __init__(self):
+        self.level = 1
+        self.wall = Wall(self.level)
+
+    def next_level(self): 
+        self.level += 1
+        self.wall = Wall(self.level)
+
+    def draw(self, screen):
+        font = pygame.font.SysFont('Comic Sans MS', 30)
+        levelText = font.render(f"Level: {self.level}", True, white)
+        screen.blit(levelText, (screenWidth - 120, 10)) 
+
+#gameOver function
+
+
 # Create the wall, platform, and scoreboard
 wall = Wall()
 wall.createWall()
 playerPlatform = Platform()
+level = Level()
 gameScore = Score(10, 10, white, screen)
 
 run = True
@@ -176,8 +195,8 @@ while run:
         if not game_active and event.type == MOUSEBUTTONDOWN:
             mouse = pygame.mouse.get_pos()
             if start_button_x <= mouse[0] <= start_button_x + button_width and start_button_y <= mouse[1] <= start_button_y + button_height:
-                game_active = True  # Start the game
-            if quit_button_x <= mouse[0] <= quit_button_x + button_width and quit_button_y <= mouse[1] <= quit_button_y + button_height:
+                game_active = True  # Start game
+            elif quit_button_x <= mouse[0] <= quit_button_x + button_width and quit_button_y <= mouse[1] <= quit_button_y + button_height:
                 run = False  # Quit the game
 
     if game_active:
@@ -187,6 +206,10 @@ while run:
         wall.drawWall()
         playerPlatform.draw()
         playerPlatform.move()
+        # Slow down platform
+        clock.tick(fps)
+        #add platform
+        level.wall.drawWall() #level 
 
         # Create ball
         ball.move()
@@ -211,8 +234,13 @@ while run:
                         gameScore.update(10)
                     ball.bounce_y()
 
+        #advance level when score hits 70
+        #if gameScore.score >= 70:
+            #level.next_level()
         # Scoreboard
         gameScore.draw()
+        #draw levels
+        level.draw(screen)
 
     else:
         # Main menu
@@ -233,8 +261,7 @@ while run:
             pygame.draw.rect(screen, black, [quit_button_x, quit_button_y, button_width, button_height])
         screen.blit(quit_text, (quit_button_x + 40, quit_button_y + 5))
 
-    # Slow down platform
-    clock.tick(fps)
+    
 
     pygame.display.update()
 
