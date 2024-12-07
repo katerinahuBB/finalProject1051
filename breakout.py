@@ -153,13 +153,9 @@ class score:
     def update(self,points):
          self.score+=points
     def draw(self):
-<<<<<<< HEAD
          #font=pygame.font.Font(None,45)
          font = pygame.font.SysFont('Comic Sans MS', 25)
          scoreText=font.render(f"Score: {self.score}",True,self.color)
-=======
-         font=pygame.font.Font(None,45)
-         scoreText=font.render(f"Your current score: {self.score}",True,self.color)
          self.screen.blit(scoreText,(self.x,self.y))
 
 
@@ -225,7 +221,4 @@ while run:
 
     pygame.display.update()
 
-<<<<<<< HEAD
 pygame.quit()
-=======
-pygame.quit
