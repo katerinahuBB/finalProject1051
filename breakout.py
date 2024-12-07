@@ -23,6 +23,7 @@ bg = (0,0,0) #use diff numbers
 #Code for background music
 mixer.music.load("gamemusic.mp3")
 mixer.music.play()
+mixer.music.set_volume(0.15)
 
 
 #block colors the ones that the ball destroys
@@ -152,8 +153,14 @@ class score:
     def update(self,points):
          self.score+=points
     def draw(self):
+<<<<<<< HEAD
+         #font=pygame.font.Font(None,45)
+         font = pygame.font.SysFont('Comic Sans MS', 25)
+         scoreText=font.render(f"Score: {self.score}",True,self.color)
+=======
          font=pygame.font.Font(None,45)
-         scoreText=font.render(f"Your current score: {self.score}",True,self.color)
+         scoreText=font.render(f"Score  {self.score}",True,self.color)
+>>>>>>> ff77a40c4417e1b3d2a228bd1e0487e434b3fb3b
          self.screen.blit(scoreText,(self.x,self.y))
 
 
@@ -219,4 +226,8 @@ while run:
 
     pygame.display.update()
 
+<<<<<<< HEAD
+pygame.quit()
+=======
 pygame.quit
+>>>>>>> ff77a40c4417e1b3d2a228bd1e0487e434b3fb3b
