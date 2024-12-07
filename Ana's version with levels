@@ -63,15 +63,21 @@ ball = Ball(ballX, ballY, ballRadius, ballColor, ballXspeed, ballYspeed, screen)
 
 
 #brick wall class
-class wall():
-    def __init__(self):
+class Wall:
+    def __init__(self,level=1): 
+        self.level=level 
         self.width = screenWidth // cols
         self.height = 50
         self.blocks = []
+        self.create_wall()
 
-    def createWall(self):
+    def create_wall(self):
         self.blocks = []
         blockInd = []
+        global rows, cols
+
+        rows = 4 + self.level
+        cols = 5 + self.level 
         for row in range(rows):
             blockRow = []
             for col in range(cols): #iterate through the cols
@@ -95,7 +101,7 @@ class wall():
             self.blocks.append(blockRow)
 
 
-    def drawWall(self): #color = based on strength
+    def draw_wall(self): #color = based on strength
         for row in self.blocks:
             for block in row:
                 if block[1] ==4:
@@ -111,8 +117,8 @@ class wall():
 
 
 #create platform
-class platform():
-	def __init__(self):
+class platform:
+	def __init__(self): 
 		self.reset()
 
 
@@ -163,11 +169,11 @@ class score:
 class Level:
     def __init__(self):
         self.level = 1
-        self.wall = wall(self.level)
+        self.wall = Wall(self.level)
 
     def next_level(self): 
         self.level += 1
-        self.wall = wall(self.level)
+        self.wall = Wall(self.level)
 
     def draw(self, screen):
         font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -178,8 +184,8 @@ class Level:
 
 
 
-wall = wall()
-wall.createWall()
+wall = Wall()
+wall.create_wall()
 
 playerPlatform = platform()
 level = Level() 
@@ -196,13 +202,14 @@ while run:
     #add background image
     screen.blit(background,(0,0))
     #the wall
-    wall.drawWall()
+    wall.draw_wall()
     #slow down platform
     clock.tick(fps)
     #add platform
-    level.wall.draw_wall() #level 
+    level.wall.draw_wall() #level  
     playerPlatform.draw()
     playerPlatform.move()
+    level = Level() 
     #create ball
     ball.move()
     # Check if ball hits the x-axis above 
@@ -230,7 +237,7 @@ while run:
         
     #scoreboard
     gameScore.draw()
-
+    level.draw(screen) 
 
 
     for event in pygame.event.get():
@@ -242,3 +249,4 @@ while run:
     clock.tick(fps) 
 
 pygame.quit()
+
