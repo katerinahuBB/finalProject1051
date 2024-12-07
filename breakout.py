@@ -164,11 +164,17 @@ class Score():
 class Level():
     def __init__(self):
         self.level = 1
+        self.max_level = 3
         self.wall = Wall(self.level)
 
     def next_level(self): 
-        self.level += 1
-        self.wall = Wall(self.level)
+        if self.level < self.max_level:
+            self.level += 1
+            self.wall = Wall(self.level)
+        else:
+            return False  # End the game when max level is reached
+        return True
+
 
     def draw(self, screen):
         font = pygame.font.SysFont('Comic Sans MS', 30)
@@ -234,9 +240,10 @@ while run:
                         gameScore.update(10)
                     ball.bounce_y()
 
-        #advance level when score hits 70
-        #if gameScore.score >= 70:
-            #level.next_level()
+        #advance level when score hits 50
+        if gameScore.score >= 50:
+            if not level.next_level():
+                game_active = False
         # Scoreboard
         gameScore.draw()
         #draw levels
