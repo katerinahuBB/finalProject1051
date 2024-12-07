@@ -153,7 +153,7 @@ class score:
          self.score+=points
     def draw(self):
          font=pygame.font.Font(None,45)
-         scoreText=font.render(f"Your current score: {self.score}",True,self.color)
+         scoreText=font.render(f"Score  {self.score}",True,self.color)
          self.screen.blit(scoreText,(self.x,self.y))
 
 
