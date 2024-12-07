@@ -159,8 +159,7 @@ class score:
          scoreText=font.render(f"Score: {self.score}",True,self.color)
 =======
          font=pygame.font.Font(None,45)
-         scoreText=font.render(f"Score  {self.score}",True,self.color)
->>>>>>> ff77a40c4417e1b3d2a228bd1e0487e434b3fb3b
+         scoreText=font.render(f"Your current score: {self.score}",True,self.color)
          self.screen.blit(scoreText,(self.x,self.y))
 
 
@@ -230,4 +229,3 @@ while run:
 pygame.quit()
 =======
 pygame.quit
->>>>>>> ff77a40c4417e1b3d2a228bd1e0487e434b3fb3b
