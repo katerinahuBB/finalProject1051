@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from random import randint
 from ball import Ball
-
+from pygame import mixer
 
 
 pygame.init()
@@ -20,6 +20,9 @@ pygame.display.set_caption("PyBreak Arcade Game")
 background = pygame.image.load("background.png")
 #to change bckground colors use code below
 bg = (0,0,0) #use diff numbers
+#Code for background music
+mixer.music.load("gamemusic.mp3")
+mixer.music.play()
 
 
 #block colors the ones that the ball destroys
@@ -138,7 +141,20 @@ class platform():
 		self.rect = Rect(self.x, self.y, self.width, self.height)
 		self.direction = 0
 
-
+#scoreboard
+class score:
+    def __init__(self,x,y,color,screen):
+         self.screen=screen
+         self.color=color
+         self.x=x
+         self.y=y
+         self.score=0
+    def update(self,points):
+         self.score+=points
+    def draw(self):
+         font=pygame.font.Font(None,45)
+         scoreText=font.render(f"Your current score: {self.score}",True,self.color)
+         self.screen.blit(scoreText,(self.x,self.y))
 
 
 
@@ -149,6 +165,9 @@ wall = wall()
 wall.createWall()
 
 playerPlatform = platform()
+
+# Create the scoreboard
+gameScore = score(10, 10, white, screen)
 
 
 
@@ -178,7 +197,7 @@ while run:
           and
         playerPlatform.rect.x < ball.x + ball.radius < playerPlatform.rect.x + playerPlatform.width):
         ball.bounce_y()
-        ball.y = playerPlatform.y - ball.radiu
+        ball.y = playerPlatform.y - ball.radius
     #check if ball hits wall
     for row in wall.blocks:
         for block in row:
@@ -187,8 +206,11 @@ while run:
                 block[1] -= 1  # Decrease brick strength
                 if block[1] <= 0:
                     row.remove(block)  # Remove brick if strength is 0
+                    gameScore.update(10)
                 ball.bounce_y()
-                break
+    #scoreboard
+    gameScore.draw()
+
 
 
     for event in pygame.event.get():
