@@ -29,3 +29,8 @@ class Ball:
     def check_for_contact_on_y(self):
         if self.y + self.radius <= 0:
             self.bounce_y()
+
+    def update_speed(self, level):
+        speed_increase = 0.5 * level
+        self.x_speed += speed_increase if self.x_speed > 0 else -speed_increase
+        self.y_speed += speed_increase if self.y_speed > 0 else -speed_increase
